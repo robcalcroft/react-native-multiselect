@@ -20,20 +20,18 @@ class MultiSelect extends Component {
     this.generateDataSource = this.generateDataSource.bind(this);
 
     this.state = {
-      selectedRows: {},
+      selectedRows: [],
     };
   }
 
-  componentWillMount() {
-    const { selectedOptions } = this.props;
-    const initialSelectedRows = {};
+  componentWillReceiveProps(props) {
+    const { selectedOptions } = props;
 
     // `selectedOptions` is a list of keys that are also used in `options`
     if (selectedOptions) {
-      for (let index = 0; index < selectedOptions.length; index += 1) {
-        initialSelectedRows[selectedOptions[index]] = true;
-      }
-      this.setState({ selectedRows: initialSelectedRows });
+      this.setState({
+        selectedRows: selectedOptions,
+      });
     }
   }
 
@@ -45,15 +43,22 @@ class MultiSelect extends Component {
 
   selectRow(row) {
     const { selectedRows } = this.state;
-    // TODO change this to use just an array doesnt need to be an object
-    if (selectedRows[row.key]) {
-      delete selectedRows[row.key];
-    } else {
-      selectedRows[row.key] = true;
-    }
+    const indexToRemove = selectedRows.indexOf(row.key);
 
     this.setState(
-      { selectedRows },
+      (() => {
+        if (indexToRemove !== -1) {
+          return {
+            selectedRows: [
+              ...selectedRows.slice(0, indexToRemove),
+              ...selectedRows.slice(indexToRemove + 1),
+            ],
+          };
+        }
+        return {
+          selectedRows: [...selectedRows].concat([row.key]),
+        };
+      })(),
       () => this.props.onSelectionChange(row, this.state.selectedRows),
     );
   }
@@ -72,7 +77,7 @@ class MultiSelect extends Component {
             {_renderRow(row)}
           </View>
           <View style={{ flex: 1 }}>
-            {selectedRows[row.key] || selectedOptions.indexOf(row.key) !== -1 ? (
+            {selectedRows.indexOf(row.key) !== -1 || selectedOptions.indexOf(row.key) !== -1 ? (
               <Icon
                 name={`${Platform.OS === 'ios' ? 'ios-' : 'md-'}checkmark`}
                 color="black"

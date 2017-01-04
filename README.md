@@ -1,7 +1,10 @@
 # react-native-multiselect
-### *Under active development, I wouldn't use this in production just yet* :wink:
-
 > A simple RN component that allows row selection
+
+## Install
+`yarn add react-native-multiselect` or `npm install react-native-multiselect --save`
+
+**You'll also need to link the [react native vector icons](https://github.com/oblador/react-native-vector-icons#installation) library to your RN project. This is for the checkmark that is used in the row.**
 
 ## Screenshot
 Looks like this (without the title and backgrounds)

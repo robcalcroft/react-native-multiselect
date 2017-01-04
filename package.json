@@ -1,11 +1,14 @@
 {
   "name": "react-native-multiselect",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A simple RN component that allows row selection",
   "main": "MultiSelect.js",
   "repository": "https://github.com/robcalcroft/react-native-multiselect",
   "author": "Rob Calcroft <rob@calcroft.com>",
   "license": "MIT",
+  "scripts": {
+    "lint": "eslint MultiSelect.js"
+  },
   "dependencies": {
     "react": "^15.4.1",
     "react-native": "0.39.2",
