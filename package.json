@@ -1,6 +1,6 @@
 {
   "name": "react-native-multiselect",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A simple RN component that allows row selection",
   "main": "MultiSelect.js",
   "repository": "https://github.com/robcalcroft/react-native-multiselect",
@@ -11,14 +11,14 @@
   },
   "dependencies": {
     "react": "^15.4.1",
-    "react-native": "0.39.2",
-    "react-native-vector-icons": "^3.0.0"
+    "react-native": "^0.40.0",
+    "react-native-vector-icons": "^4.0.0"
   },
   "devDependencies": {
     "babel": "^6.5.2",
     "babel-eslint": "^7.1.1",
     "eslint": "^3.11.1",
-    "eslint-config-airbnb": "^13.0.0",
+    "eslint-config-airbnb": "^14.0.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.7.1"
