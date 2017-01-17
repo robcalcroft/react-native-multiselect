@@ -42,6 +42,13 @@ list.
 A React Native style object, you can also pass StyleSheet styles to this; they
 will be flattened.
 
+## `flexRight` `Number`
+Defines the flex of the rendered row
+
+## `flexLeft` `Number`
+Defines the flex of the check mark
+
+
 ## Usage
 ```javascript
 import MultiSelect from 'react-native-multiselect';

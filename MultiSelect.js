@@ -64,7 +64,7 @@ class MultiSelect extends Component {
   }
 
   renderRow(row) {
-    const { renderRow: _renderRow, rowStyle, selectedOptions } = this.props;
+    const { renderRow: _renderRow, rowStyle, selectedOptions, flexLeft, flexRight } = this.props;
     const { selectedRows } = this.state;
 
     return (
@@ -73,11 +73,11 @@ class MultiSelect extends Component {
         onPress={() => this.selectRow(row)}
       >
         <View style={[styles.row, StyleSheet.flatten(rowStyle)]}>
-          <View style={{ flex: 15 }}>
+          <View style={{ flex: flexLeft || 15 }}>
             {_renderRow(row)}
           </View>
-          <View style={{ flex: 1 }}>
-            {selectedRows.indexOf(row.key) !== -1 || selectedOptions.indexOf(row.key) !== -1 ? (
+          <View style={{ flex: flexRight || 1 }}>
+            {selectedRows.indexOf(row.key) !== -1 || selectedOptions && selectedOptions.indexOf(row.key) !== -1 ? (
               <Icon
                 name={`${Platform.OS === 'ios' ? 'ios-' : 'md-'}checkmark`}
                 color="black"
@@ -119,6 +119,8 @@ MultiSelect.propTypes = {
   // `selectedOptions` is an array of keys that are also found in `options`
   selectedOptions: PropTypes.array, // eslint-disable-line react/forbid-prop-types
   rowStyle: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  flexLeft: PropTypes.number,
+  flexRight: PropTypes.number,
 };
 
 export default MultiSelect;
