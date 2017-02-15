@@ -3,9 +3,6 @@ import { TouchableHighlight, View, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   row: {
-    minHeight: 36,
-    paddingLeft: 5,
-    paddingRight: 5,
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -31,7 +28,7 @@ class MultiSelectRow extends Component {
 
     return (
       <TouchableHighlight
-        underlayColor="rgb(245, 246, 246)"
+        activeOpacity={0.2}
         onPress={() => selectRow(row)}
       >
         <View style={[styles.row, StyleSheet.flatten(rowStyle)]}>
@@ -43,7 +40,7 @@ class MultiSelectRow extends Component {
 }
 
 MultiSelectRow.propTypes = {
-  row: PropTypes.arrayOf(PropTypes.object).isRequired,
+  row: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   isSelected: PropTypes.bool,
   renderRow: PropTypes.func.isRequired,
   selectRow: PropTypes.func.isRequired,
