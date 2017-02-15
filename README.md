@@ -42,6 +42,9 @@ list.
 A React Native style object, you can also pass StyleSheet styles to this; they
 will be flattened.
 
+## `listViewProps{}`
+An object of props that are given to the ListView, this for things like `renderHeader`
+
 ### `activeOpacity` `Number`
 Proxied to the TouchableHighlight component when you click the row
 

@@ -90,14 +90,14 @@ class MultiSelect extends Component {
   }
 
   render() {
-    const { options } = this.props;
+    const { options, listViewProps } = this.props;
 
     return (
       <ListView
         dataSource={this.generateDataSource(options)}
         renderRow={this.renderRow}
-        renderSeparator={this.renderSeparator}
         enableEmptySections
+        {...listViewProps}
       />
     );
   }
@@ -113,6 +113,7 @@ MultiSelect.propTypes = {
     // Can use this to store other row data
   }).isRequired).isRequired,
   renderRow: PropTypes.func.isRequired,
+  listViewProps: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   // Passes `selectedRow, allSelectedRows`
   onSelectionChange: PropTypes.func,
   // `selectedOptions` is an array of keys that are also found in `options`
