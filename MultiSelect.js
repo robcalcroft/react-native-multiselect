@@ -1,22 +1,13 @@
 import React, { Component, PropTypes } from 'react';
-import { ListView, TouchableHighlight, StyleSheet, View, Platform } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
-
-const styles = StyleSheet.create({
-  row: {
-    minHeight: 36,
-    paddingLeft: 5,
-    paddingRight: 5,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-});
+import { ListView } from 'react-native';
+import MultiSelectRow from './MultiSelectRow';
 
 class MultiSelect extends Component {
   constructor() {
     super();
 
     this.renderRow = this.renderRow.bind(this);
+    this.selectRow = this.selectRow.bind(this);
     this.generateDataSource = this.generateDataSource.bind(this);
 
     this.state = {
@@ -33,6 +24,14 @@ class MultiSelect extends Component {
         selectedRows: selectedOptions,
       });
     }
+  }
+
+  shouldComponentUpdate(nextProps) {
+    // This is a performance check as this sometimes gets updated often
+    if (nextProps.selectedOptions.length === this.props.selectedOptions.length) {
+      return false;
+    }
+    return true;
   }
 
   generateDataSource(options) { // eslint-disable-line class-methods-use-this
@@ -64,29 +63,21 @@ class MultiSelect extends Component {
   }
 
   renderRow(row) {
-    const { renderRow: _renderRow, rowStyle, selectedOptions, flexLeft, flexRight } = this.props;
+    const { renderRow: _renderRow, rowStyle, selectedOptions } = this.props;
     const { selectedRows } = this.state;
+    const isSelected = (
+      selectedRows.indexOf(row.key) !== -1 ||
+      (selectedOptions && selectedOptions.indexOf(row.key) !== -1)
+    );
 
     return (
-      <TouchableHighlight
-        underlayColor="rgb(245, 246, 246)"
-        onPress={() => this.selectRow(row)}
-      >
-        <View style={[styles.row, StyleSheet.flatten(rowStyle)]}>
-          <View style={{ flex: flexLeft || 15 }}>
-            {_renderRow(row)}
-          </View>
-          <View style={{ flex: flexRight || 1 }}>
-            {selectedRows.indexOf(row.key) !== -1 || selectedOptions && selectedOptions.indexOf(row.key) !== -1 ? (
-              <Icon
-                name={`${Platform.OS === 'ios' ? 'ios-' : 'md-'}checkmark`}
-                color="black"
-                size={30}
-              />
-            ) : null}
-          </View>
-        </View>
-      </TouchableHighlight>
+      <MultiSelectRow
+        row={row}
+        isSelected={isSelected}
+        renderRow={_renderRow}
+        rowStyle={rowStyle}
+        selectRow={this.selectRow}
+      />
     );
   }
 
@@ -119,8 +110,6 @@ MultiSelect.propTypes = {
   // `selectedOptions` is an array of keys that are also found in `options`
   selectedOptions: PropTypes.array, // eslint-disable-line react/forbid-prop-types
   rowStyle: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  flexLeft: PropTypes.number,
-  flexRight: PropTypes.number,
 };
 
 export default MultiSelect;
