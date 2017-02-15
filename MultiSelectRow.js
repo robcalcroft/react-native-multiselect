@@ -23,12 +23,22 @@ class MultiSelectRow extends Component {
   }
 
   render() {
-    const { row, rowStyle, isSelected, renderRow, selectRow } = this.props;
+    const {
+      row,
+      rowStyle,
+      isSelected,
+      renderRow,
+      selectRow,
+      activeOpacity,
+      underlayColor,
+    } = this.props;
+
     this.isSelected = isSelected;
 
     return (
       <TouchableHighlight
-        activeOpacity={0.2}
+        activeOpacity={activeOpacity || 0.8}
+        underlayColor={underlayColor || 'white'}
         onPress={() => selectRow(row)}
       >
         <View style={[styles.row, StyleSheet.flatten(rowStyle)]}>
@@ -44,6 +54,8 @@ MultiSelectRow.propTypes = {
   isSelected: PropTypes.bool,
   renderRow: PropTypes.func.isRequired,
   selectRow: PropTypes.func.isRequired,
+  activeOpacity: PropTypes.number,
+  underlayColor: PropTypes.string,
   rowStyle: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.number,

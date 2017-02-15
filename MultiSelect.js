@@ -63,7 +63,13 @@ class MultiSelect extends Component {
   }
 
   renderRow(row) {
-    const { renderRow: _renderRow, rowStyle, selectedOptions } = this.props;
+    const {
+      renderRow: _renderRow,
+      rowStyle,
+      selectedOptions,
+      underlayColor,
+      activeOpacity,
+    } = this.props;
     const { selectedRows } = this.state;
     const isSelected = (
       selectedRows.indexOf(row.key) !== -1 ||
@@ -77,6 +83,8 @@ class MultiSelect extends Component {
         renderRow={_renderRow}
         rowStyle={rowStyle}
         selectRow={this.selectRow}
+        activeOpacity={activeOpacity}
+        underlayColor={underlayColor}
       />
     );
   }
@@ -110,6 +118,8 @@ MultiSelect.propTypes = {
   // `selectedOptions` is an array of keys that are also found in `options`
   selectedOptions: PropTypes.array, // eslint-disable-line react/forbid-prop-types
   rowStyle: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  activeOpacity: PropTypes.number,
+  underlayColor: PropTypes.string,
 };
 
 export default MultiSelect;

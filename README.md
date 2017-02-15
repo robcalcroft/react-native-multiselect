@@ -42,6 +42,12 @@ list.
 A React Native style object, you can also pass StyleSheet styles to this; they
 will be flattened.
 
+### `activeOpacity` `Number`
+Proxied to the TouchableHighlight component when you click the row
+
+### `underlayColor` `String`
+Proxied to the TouchableHighlight component when you click the row
+
 
 ## Usage
 ```javascript
