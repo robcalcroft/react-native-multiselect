@@ -104,14 +104,14 @@ class MultiSelect extends Component {
 }
 
 MultiSelect.propTypes = {
-  options: PropTypes.arrayOf(PropTypes.shape({
+  options: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.shape({
     key: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.string,
     ]),
     name: PropTypes.string.isRequired,
     // Can use this to store other row data
-  }).isRequired).isRequired,
+  }).isRequired).isRequired, PropTypes.object]), // eslint-disable-line react/forbid-prop-types
   renderRow: PropTypes.func.isRequired,
   listViewProps: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   // Passes `selectedRow, allSelectedRows`
