@@ -1,6 +1,6 @@
 {
   "name": "react-native-multiselect",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "A simple RN component that allows row selection",
   "main": "MultiSelect.js",
   "repository": "https://github.com/robcalcroft/react-native-multiselect",
