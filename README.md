@@ -45,6 +45,17 @@ will be flattened.
 ## `listViewProps{}`
 An object of props that are given to the ListView, this for things like `renderHeader`
 
+## `generateDataSource` `(options)`
+Use this to specify a custom generate data source function that is given the options param you specified above. **You only need to use this if you need to use sections or need a different `rowHasChanged`**.
+The current implementation looks like this:
+```javascript
+generateDataSource(options) {
+  return new ListView.DataSource({
+    rowHasChanged: (r1, r2) => r1 !== r2,
+  }).cloneWithRows(options);
+}
+```
+
 ### `activeOpacity` `Number`
 Proxied to the TouchableHighlight component when you click the row
 

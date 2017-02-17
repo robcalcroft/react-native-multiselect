@@ -90,11 +90,11 @@ class MultiSelect extends Component {
   }
 
   render() {
-    const { options, listViewProps } = this.props;
+    const { options, listViewProps, generateDataSource } = this.props;
 
     return (
       <ListView
-        dataSource={this.generateDataSource(options)}
+        dataSource={(generateDataSource || this.generateDataSource)(options)}
         renderRow={this.renderRow}
         enableEmptySections
         {...listViewProps}
@@ -118,6 +118,8 @@ MultiSelect.propTypes = {
   onSelectionChange: PropTypes.func,
   // `selectedOptions` is an array of keys that are also found in `options`
   selectedOptions: PropTypes.array, // eslint-disable-line react/forbid-prop-types
+  // Use this to specify a custom generate data source function that is given options
+  generateDataSource: PropTypes.func,
   rowStyle: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   activeOpacity: PropTypes.number,
   underlayColor: PropTypes.string,
