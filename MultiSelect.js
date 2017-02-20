@@ -26,11 +26,13 @@ class MultiSelect extends Component {
     }
   }
 
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps, nextState) {
     // This is a performance check as this sometimes gets updated often
-    if (nextProps.selectedOptions.length === this.props.selectedOptions.length) {
+    if (nextProps.selectedOptions === this.props.selectedOptions &&
+      nextState.selectedRows === this.state.selectedRows) {
       return false;
     }
+
     return true;
   }
 
