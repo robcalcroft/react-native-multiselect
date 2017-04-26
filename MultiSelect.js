@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { ListView } from 'react-native';
+import { ListView, FlatList, SectionList } from 'react-native';
 import MultiSelectRow from './MultiSelectRow';
 
 class MultiSelect extends Component {
@@ -63,6 +63,10 @@ class MultiSelect extends Component {
   }
 
   renderRow(row) {
+    if (!row.item) {
+      return false;
+    }
+
     const {
       renderRow: _renderRow,
       rowStyle,
@@ -72,13 +76,13 @@ class MultiSelect extends Component {
     } = this.props;
     const { selectedRows } = this.state;
     const isSelected = (
-      selectedRows.indexOf(row.key) !== -1 ||
-      (selectedOptions && selectedOptions.indexOf(row.key) !== -1)
+      selectedRows.indexOf(row.item.key) !== -1 ||
+      (selectedOptions && selectedOptions.indexOf(row.item.key) !== -1)
     );
 
     return (
       <MultiSelectRow
-        row={row}
+        row={row.item}
         isSelected={isSelected}
         renderRow={_renderRow}
         rowStyle={rowStyle}
@@ -90,39 +94,43 @@ class MultiSelect extends Component {
   }
 
   render() {
-    const { options, listViewProps, generateDataSource } = this.props;
+    const { options, listProps, useSections } = this.props;
+    let view = null;
 
-    return (
-      <ListView
-        dataSource={(generateDataSource || this.generateDataSource)(options)}
-        renderRow={this.renderRow}
-        enableEmptySections
-        {...listViewProps}
-      />
-    );
+    if (useSections) {
+      view = (
+        <SectionList
+          sections={options}
+          renderItem={this.renderRow}
+          {...listProps}
+        />
+      );
+    } else {
+      view = (
+        <FlatList
+          data={options}
+          renderItem={this.renderRow}
+          {...listProps}
+        />
+      );
+    }
+
+    return view;
   }
 }
 
 MultiSelect.propTypes = {
-  options: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.shape({
-    key: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string,
-    ]),
-    name: PropTypes.string.isRequired,
-    // Can use this to store other row data
-  }).isRequired).isRequired, PropTypes.object]), // eslint-disable-line react/forbid-prop-types
+  options: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   renderRow: PropTypes.func.isRequired,
-  listViewProps: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  listProps: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   // Passes `selectedRow, allSelectedRows`
   onSelectionChange: PropTypes.func,
   // `selectedOptions` is an array of keys that are also found in `options`
   selectedOptions: PropTypes.array, // eslint-disable-line react/forbid-prop-types
-  // Use this to specify a custom generate data source function that is given options
-  generateDataSource: PropTypes.func,
   rowStyle: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   activeOpacity: PropTypes.number,
   underlayColor: PropTypes.string,
+  useSections: PropTypes.bool,
 };
 
 export default MultiSelect;

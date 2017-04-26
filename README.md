@@ -4,7 +4,10 @@
 ## Install
 `yarn add react-native-multiselect` or `npm install react-native-multiselect --save`
 
-###2.0.0
+### 3.0.0
+`3.0.0` swaps out `ListView` for `FlatList` or `SectionList`. This gives a huge performance increase for larger lists. This is a **breaking change** so you might need to modify your implementation of `react-native-multiselect` for this to work. Don't worry though, its not a massive change.
+
+### 2.0.0
 **If you used `<2.0.0` the `renderRow` API has changed and you'll need to do a small rewrite**
 
 `2.0.0` brings some major performance enhancements and removes the dependancy on `react-native-vector-icons`, you are now just given an `isSelected` parameter which you can use to style the `renderRow`. Thanks to [@indesignlatam](https://github.com/indesignlatam) for proposing a fix to performance issues with large datasets.
@@ -42,25 +45,17 @@ list.
 A React Native style object, you can also pass StyleSheet styles to this; they
 will be flattened.
 
-## `listViewProps{}`
-An object of props that are given to the ListView, this for things like `renderHeader`
-
-## `generateDataSource` `(options)`
-Use this to specify a custom generate data source function that is given the options param you specified above. **You only need to use this if you need to use sections or need a different `rowHasChanged`**.
-The current implementation looks like this:
-```javascript
-generateDataSource(options) {
-  return new ListView.DataSource({
-    rowHasChanged: (r1, r2) => r1 !== r2,
-  }).cloneWithRows(options);
-}
-```
+### `listProps{}`
+An object of props that are given to the FlatList or SectionList, this for things like `ListHeaderComponent`
 
 ### `activeOpacity` `Number`
 Proxied to the TouchableHighlight component when you click the row
 
 ### `underlayColor` `String`
 Proxied to the TouchableHighlight component when you click the row
+
+### `useSections` `Boolean`
+Use this to render a `SectionList` instead of a `FlatList`. Your `options` prop needs to looks like the one seen here: https://facebook.github.io/react-native/docs/sectionlist.html
 
 
 ## Usage
