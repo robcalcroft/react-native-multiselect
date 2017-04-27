@@ -3,15 +3,16 @@ import { ListView, FlatList, SectionList } from 'react-native';
 import MultiSelectRow from './MultiSelectRow';
 
 class MultiSelect extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.renderRow = this.renderRow.bind(this);
     this.selectRow = this.selectRow.bind(this);
     this.generateDataSource = this.generateDataSource.bind(this);
-
+    
+    const { selectedOptions } = props;
     this.state = {
-      selectedRows: [],
+      selectedRows: selectedOptions || [],
     };
   }
 
