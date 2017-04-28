@@ -10,9 +10,8 @@ class MultiSelect extends Component {
     this.selectRow = this.selectRow.bind(this);
     this.generateDataSource = this.generateDataSource.bind(this);
     
-    const { selectedOptions } = props;
     this.state = {
-      selectedRows: selectedOptions || [],
+      selectedRows: props.selectedOptions || [],
     };
   }
 
