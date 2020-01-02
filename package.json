@@ -4,7 +4,7 @@
   "description": "A simple RN component that allows row selection",
   "main": "MultiSelect.js",
   "repository": "https://github.com/robcalcroft/react-native-multiselect",
-  "author": "Rob Calcroft <rob@calcroft.com>",
+  "author": "Rob Calcroft <robcalcroft@users.noreply.github.com>",
   "license": "MIT",
   "scripts": {
     "lint": "eslint MultiSelect.js MultiSelectRow.js"
